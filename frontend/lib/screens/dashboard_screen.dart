@@ -100,8 +100,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                   color: AppColors.primary,
                   borderRadius: BorderRadius.circular(AppRadius.md),
                 ),
-                child: const Icon(Icons.shield_outlined,
-                    color: Colors.white, size: 26),
+                child: const Icon(
+                  Icons.shield_outlined,
+                  color: Colors.white,
+                  size: 26,
+                ),
               ),
               const SizedBox(height: 24),
               const SizedBox(
@@ -139,7 +142,9 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
               slivers: [
                 // ── Top bar ──
-                SliverToBoxAdapter(child: _buildTopBar(firstName, authProvider)),
+                SliverToBoxAdapter(
+                  child: _buildTopBar(firstName, authProvider),
+                ),
 
                 // ── Greeting card ──
                 SliverToBoxAdapter(child: _buildGreetingCard(firstName)),
@@ -153,8 +158,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                     padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
                     child: AppSectionHeader(
                       title: 'Your Policies',
-                      actionLabel:
-                          _policies.isNotEmpty ? '${_policies.length} active' : null,
+                      actionLabel: _policies.isNotEmpty
+                          ? '${_policies.length} active'
+                          : null,
                     ),
                   ),
                 ),
@@ -208,13 +214,19 @@ class _DashboardScreenState extends State<DashboardScreen>
               color: AppColors.primary,
               borderRadius: BorderRadius.circular(AppRadius.sm),
             ),
-            child: const Icon(Icons.shield_outlined,
-                color: Colors.white, size: 22),
+            child: const Icon(
+              Icons.shield_outlined,
+              color: Colors.white,
+              size: 22,
+            ),
           ),
           const SizedBox(width: 12),
-          Text('SecureLife',
-              style: AppTextStyles.titleLarge
-                  .copyWith(fontWeight: FontWeight.w700)),
+          Text(
+            'SecureLife',
+            style: AppTextStyles.titleLarge.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           const Spacer(),
 
           // Profile
@@ -233,8 +245,9 @@ class _DashboardScreenState extends State<DashboardScreen>
               child: Center(
                 child: Text(
                   name[0].toUpperCase(),
-                  style: AppTextStyles.titleMedium
-                      .copyWith(color: AppColors.primary),
+                  style: AppTextStyles.titleMedium.copyWith(
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
             ),
@@ -260,7 +273,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                 borderRadius: BorderRadius.circular(AppRadius.full),
                 border: Border.all(color: AppColors.border),
               ),
-              child: const Icon(Icons.logout, size: 18, color: AppColors.textSecondary),
+              child: const Icon(
+                Icons.logout,
+                size: 18,
+                color: AppColors.textSecondary,
+              ),
             ),
           ),
         ],
@@ -299,17 +316,24 @@ class _DashboardScreenState extends State<DashboardScreen>
             const SizedBox(height: 6),
             Text(
               'Your coverage is looking great today.',
-              style: AppTextStyles.bodyMedium
-                  .copyWith(color: Colors.white.withValues(alpha: 0.8)),
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: Colors.white.withValues(alpha: 0.8),
+              ),
             ),
             const SizedBox(height: 20),
             Row(
               children: [
                 _buildGreetingStat(
-                    '${_policies.length}', 'Active\nPolicies', Colors.white),
+                  '${_policies.length}',
+                  'Active\nPolicies',
+                  Colors.white,
+                ),
                 const SizedBox(width: 24),
                 _buildGreetingStat(
-                    '₹${_getTotalCoverage()}', 'Total\nCoverage', Colors.white),
+                  '₹${_getTotalCoverage()}',
+                  'Total\nCoverage',
+                  Colors.white,
+                ),
               ],
             ),
           ],
@@ -322,10 +346,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          value,
-          style: AppTextStyles.headlineMedium.copyWith(color: color),
-        ),
+        Text(value, style: AppTextStyles.headlineMedium.copyWith(color: color)),
         const SizedBox(height: 2),
         Text(
           label,
@@ -343,24 +364,44 @@ class _DashboardScreenState extends State<DashboardScreen>
       padding: const EdgeInsets.fromLTRB(20, 24, 20, 8),
       child: Row(
         children: [
-          _buildQuickAction(Icons.add_circle_outline, 'Buy Policy',
-              AppColors.primary, AppColors.primaryLight),
+          _buildQuickAction(
+            Icons.add_circle_outline,
+            'Buy Policy',
+            AppColors.primary,
+            AppColors.primaryLight,
+          ),
           const SizedBox(width: 12),
-          _buildQuickAction(Icons.receipt_long_outlined, 'Claims',
-              AppColors.healthPolicy, AppColors.successBg),
+          _buildQuickAction(
+            Icons.receipt_long_outlined,
+            'Claims',
+            AppColors.healthPolicy,
+            AppColors.successBg,
+          ),
           const SizedBox(width: 12),
-          _buildQuickAction(Icons.headset_mic_outlined, 'Support',
-              AppColors.accent, AppColors.accentLight),
+          _buildQuickAction(
+            Icons.headset_mic_outlined,
+            'Support',
+            AppColors.accent,
+            AppColors.accentLight,
+          ),
           const SizedBox(width: 12),
-          _buildQuickAction(Icons.history, 'History',
-              AppColors.warning, AppColors.warningBg),
+          _buildQuickAction(
+            Icons.history,
+            'History',
+            AppColors.warning,
+            AppColors.warningBg,
+          ),
         ],
       ),
     );
   }
 
   Widget _buildQuickAction(
-      IconData icon, String label, Color iconColor, Color bgColor) {
+    IconData icon,
+    String label,
+    Color iconColor,
+    Color bgColor,
+  ) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -415,12 +456,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                 color: AppColors.primaryLight,
                 borderRadius: BorderRadius.circular(AppRadius.full),
               ),
-              child: const Icon(Icons.shield_outlined,
-                  size: 36, color: AppColors.primary),
+              child: const Icon(
+                Icons.shield_outlined,
+                size: 36,
+                color: AppColors.primary,
+              ),
             ),
             const SizedBox(height: 20),
-            Text('No active policies',
-                style: AppTextStyles.titleMedium),
+            Text('No active policies', style: AppTextStyles.titleMedium),
             const SizedBox(height: 8),
             Text(
               'Secure your future by buying\na policy today.',
@@ -453,8 +496,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) =>
-                PolicyDetailsScreen(policyId: policy['_id'] ?? ''),
+            builder: (_) => PolicyDetailsScreen(policyId: policy['_id'] ?? ''),
           ),
         );
       },
@@ -528,11 +570,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ],
                   ),
                 ),
-                Container(
-                  width: 1,
-                  height: 36,
-                  color: AppColors.divider,
-                ),
+                Container(width: 1, height: 36, color: AppColors.divider),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -571,7 +609,9 @@ class _DashboardScreenState extends State<DashboardScreen>
 
           return Container(
             width: 240,
-            margin: EdgeInsets.only(right: index < _recommendations.length - 1 ? 12 : 0),
+            margin: EdgeInsets.only(
+              right: index < _recommendations.length - 1 ? 12 : 0,
+            ),
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: AppColors.surface,
@@ -609,8 +649,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                         color: AppColors.primary,
                       ),
                     ),
-                    const Icon(Icons.arrow_forward,
-                        size: 16, color: AppColors.primary),
+                    const Icon(
+                      Icons.arrow_forward,
+                      size: 16,
+                      color: AppColors.primary,
+                    ),
                   ],
                 ),
               ],
@@ -639,7 +682,9 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   String _formatAmount(dynamic amount) {
     if (amount == null) return '0';
-    final num val = amount is num ? amount : num.tryParse(amount.toString()) ?? 0;
+    final num val = amount is num
+        ? amount
+        : num.tryParse(amount.toString()) ?? 0;
     if (val >= 10000000) return '${(val / 10000000).toStringAsFixed(1)}Cr';
     if (val >= 100000) return '${(val / 100000).toStringAsFixed(1)}L';
     if (val >= 1000) return '${(val / 1000).toStringAsFixed(1)}K';
