@@ -10,6 +10,7 @@ import '../widgets/input_field.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/tab_switcher.dart';
 import '../widgets/terms_text.dart';
+import 'home_screen.dart';
 import 'otp_screen.dart';
 import 'password_screen.dart';
 
@@ -156,12 +157,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _processAuthSuccess(Map<String, dynamic> response) async {
     if (response['token'] != null) {
       await LocalStorage.setToken(response['token']);
-      // Navigate to home or dashboard
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login Successful!')),
+        Navigator.pushAndRemoveUntil(
+          context, 
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          (route) => false,
         );
-        // Navigator.pushAndRemoveUntil(...)
       }
     }
   }

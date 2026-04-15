@@ -6,6 +6,8 @@ import '../widgets/input_field.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/link_text.dart';
 import '../widgets/terms_text.dart';
+import '../widgets/status_dialog.dart';
+import 'home_screen.dart';
 
 class PasswordScreen extends StatefulWidget {
   final String email;
@@ -21,6 +23,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
   bool _obscurePassword = true;
   bool _isLoading = false;
   String? _errorText;
+  int _failedAttempts = 0;
+  static const int _maxAttempts = 5;
 
   @override
   void initState() {
@@ -47,11 +51,42 @@ class _PasswordScreenState extends State<PasswordScreen> {
     setState(() => _isLoading = false);
 
     if (_passwordController.text != "Vik@98765" && _passwordController.text != "123456") {
-      setState(() => _errorText = "Incorrect password. Please try again");
+      setState(() {
+        _failedAttempts++;
+        int remaining = _maxAttempts - _failedAttempts;
+        if (remaining > 0) {
+          _errorText = "Incorrect password. You have $remaining attempts left.";
+        } else {
+          _errorText = null;
+          StatusDialog.show(
+            context,
+            title: "Too Many Incorrect Attempts",
+            subtitle: "You've entered the wrong password too many times. Please try again after 24 hours.",
+            buttonText: "Okay",
+          );
+        }
+      });
     } else {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Login Successful!")));
+      Navigator.pushAndRemoveUntil(
+        context, 
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        (route) => false,
+      );
     }
+  }
+
+  void _handleForgotPassword() {
+    StatusDialog.show(
+      context,
+      isError: false,
+      icon: Icons.email_outlined,
+      iconColor: const Color(0xFF4A1010),
+      title: "Password Sent to Your Email",
+      subtitle: "We've emailed you a new password. Use it to log in now or reset it later for security.",
+      buttonText: "Use New Password",
+      onButtonPressed: () => Navigator.pop(context),
+    );
   }
 
   @override
@@ -98,9 +133,12 @@ class _PasswordScreenState extends State<PasswordScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          const Align(
+          Align(
             alignment: Alignment.centerRight,
-            child: LinkText(text: "Forgot Password", isUnderlined: true),
+            child: GestureDetector(
+              onTap: _handleForgotPassword,
+              child: const LinkText(text: "Forgot Password", isUnderlined: true),
+            ),
           ),
           const SizedBox(height: 32),
           PrimaryButton(

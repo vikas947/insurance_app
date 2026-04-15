@@ -7,6 +7,8 @@ import '../widgets/auth_layout.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/link_text.dart';
 import '../widgets/terms_text.dart';
+import '../widgets/status_dialog.dart';
+import 'home_screen.dart';
 
 class OtpScreen extends StatefulWidget {
   final String mobile;
@@ -26,6 +28,7 @@ class _OtpScreenState extends State<OtpScreen> {
   Timer? _timer;
   bool _isVerifying = false;
   bool _canResend = false;
+  int _failedAttempts = 0;
 
   @override
   void initState() {
@@ -66,13 +69,30 @@ class _OtpScreenState extends State<OtpScreen> {
   Future<void> _handleVerify() async {
     if (!_isOtpComplete || _isVerifying) return;
     setState(() => _isVerifying = true);
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     setState(() => _isVerifying = false);
-    if (!mounted) return;
     
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('OTP Verified Successfully!'), backgroundColor: Colors.green),
-    );
+    if (!mounted) return;
+
+    // Simulate OTP validation
+    String enteredOtp = _controllers.map((c) => c.text).join();
+    if (enteredOtp == "156272") { // Matching the image's example OTP
+      Navigator.pushAndRemoveUntil(
+        context, 
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+        (route) => false,
+      );
+    } else {
+      setState(() => _failedAttempts++);
+      if (_failedAttempts >= 3) {
+        StatusDialog.show(
+          context,
+          title: "Too Many Incorrect OTP Entries",
+          subtitle: "You've entered the wrong OTP too many times. Please try again after 24 hours.",
+          buttonText: "Okay",
+        );
+      }
+    }
   }
 
   @override
