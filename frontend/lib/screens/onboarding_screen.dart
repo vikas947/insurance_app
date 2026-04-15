@@ -301,10 +301,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                         color: AppColors.primary, size: 28),
                   ),
                   const SizedBox(height: 16),
-                  Text('Upload documents',
+                  const Text('Upload documents',
                       style: AppTextStyles.titleMedium),
                   const SizedBox(height: 4),
-                  Text(
+                  const Text(
                     'PAN card, Aadhaar card (front & back)',
                     style: AppTextStyles.bodySmall,
                     textAlign: TextAlign.center,

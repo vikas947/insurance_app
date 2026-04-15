@@ -89,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     if (_user == null) {
-      return Scaffold(
+      return const Scaffold(
         backgroundColor: AppColors.background,
         body: Center(
           child: Text('User not found', style: AppTextStyles.bodyLarge),

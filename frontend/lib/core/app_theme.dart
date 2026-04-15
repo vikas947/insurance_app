@@ -1,354 +1,267 @@
 import 'package:flutter/material.dart';
 
-/// ─────────────────────────────────────────────────────────────────────────────
-/// Centralized design tokens for the Insurance App.
-/// Inspired by premium fintech aesthetics (Groww / CRED).
-/// ─────────────────────────────────────────────────────────────────────────────
+/// ─────────────────────────────────────────────────────────
+/// PREMIUM DESIGN SYSTEM (INSURANCE APP)
+/// ─────────────────────────────────────────────────────────
 
 class AppColors {
   AppColors._();
 
-  // ── Primary brand ──
-  static const Color primary = Color(0xFF4A6CF7);
-  static const Color primaryDark = Color(0xFF3A56D4);
-  static const Color primaryLight = Color(0xFFEEF2FF);
-  static const Color primaryGlow = Color(0x264A6CF7); // 15 % opacity glow
+  // Primary Palette
+  static const Color primary = Color(0xFF002D7D);
+  static const Color primaryLight = Color(0xFFE6EBF5);
+  static const Color secondary = Color(0xFF96272A);
+  static const Color accent = Color(0xFF7C5CFC);
+  static const Color accentLight = Color(0xFFF1EEFF);
 
-  // ── Accent ──
-  static const Color accent = Color(0xFF7C5CFC); // purple accent for social
-  static const Color accentLight = Color(0xFFF3F0FF);
+  // Status Colors
+  static const Color success = Color(0xFF10B981);
+  static const Color successBg = Color(0xFFECFDF5);
+  static const Color warning = Color(0xFFF59E0B);
+  static const Color warningBg = Color(0xFFFFFBEB);
+  static const Color error = Color(0xFFEF4444);
+  static const Color errorBg = Color(0xFFFEF2F2);
 
-  // ── Neutral palette ──
-  static const Color background = Color(0xFFFAFBFF);
-  static const Color surface = Colors.white;
-  static const Color surfaceVariant = Color(0xFFF7F8FC);
-  static const Color textPrimary = Color(0xFF1A1D26);
+  // Policy Specific
+  static const Color healthPolicy = Color(0xFF10B981);
+  static const Color lifePolicy = Color(0xFF002D7D);
+  static const Color vehiclePolicy = Color(0xFFF59E0B);
+
+  // Neutral Palette
+  static const Color textPrimary = Color(0xFF1A1A1A);
   static const Color textSecondary = Color(0xFF6B7280);
   static const Color textHint = Color(0xFF9CA3AF);
   static const Color border = Color(0xFFE5E7EB);
-  static const Color borderFocused = Color(0xFF4A6CF7);
   static const Color divider = Color(0xFFF3F4F6);
+  static const Color background = Color(0xFFF9FAFB);
+  static const Color surface = Colors.white;
+  static const Color surfaceVariant = Color(0xFFF3F4F6);
 
-  // ── Feedback ──
-  static const Color success = Color(0xFF22C55E);
-  static const Color successBg = Color(0xFFF0FDF4);
-  static const Color error = Color(0xFFEF4444);
-  static const Color errorBg = Color(0xFFFEF2F2);
-  static const Color warning = Color(0xFFF59E0B);
-  static const Color warningBg = Color(0xFFFEFCE8);
+  // Legacy/Compatibility
+  static const Color ctaEnabled = primary;
+  static const Color ctaDisabled = Color(0xFF9CA3AF);
+  static const Color borderFocused = primary;
+  static const Color white = Colors.white;
+  static const Color black = textPrimary;
+  static const Color grey = textSecondary;
+  static const Color lightGrey = border;
+  static const Color disabled = Color(0xFF9CA3AF);
 
-  // ── Policy type colours ──
-  static const Color healthPolicy = Color(0xFF10B981);
-  static const Color lifePolicy = Color(0xFF6366F1);
-  static const Color motorPolicy = Color(0xFFF97316);
-  static const Color homePolicy = Color(0xFF8B5CF6);
-  static const Color travelPolicy = Color(0xFF0EA5E9);
+  // Utility Methods
+  static Color getPolicyTypeColor(String? type) {
+    switch (type?.toLowerCase()) {
+      case 'health': return healthPolicy;
+      case 'life': return lifePolicy;
+      case 'vehicle': return vehiclePolicy;
+      default: return primary;
+    }
+  }
 
-  // ── Misc ──
-  static const Color shimmer = Color(0xFFE5E7EB);
-  static const Color overlay = Color(0x80000000);
-  static const Color cardShadow = Color(0x0A000000);
+  static IconData getPolicyTypeIcon(String? type) {
+    switch (type?.toLowerCase()) {
+      case 'health': return Icons.favorite_outline;
+      case 'life': return Icons.person_outline;
+      case 'vehicle': return Icons.directions_car_outlined;
+      default: return Icons.shield_outlined;
+    }
+  }
 }
 
 class AppTextStyles {
   AppTextStyles._();
 
-  static const String _fontFamily = 'Roboto';
+  static const String font = 'Inter';
 
   static const TextStyle displayLarge = TextStyle(
-    fontFamily: _fontFamily,
+    fontFamily: font,
     fontSize: 32,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w800,
     color: AppColors.textPrimary,
-    height: 1.25,
     letterSpacing: -0.5,
   );
 
   static const TextStyle displayMedium = TextStyle(
-    fontFamily: _fontFamily,
+    fontFamily: font,
     fontSize: 28,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
-    height: 1.3,
-    letterSpacing: -0.3,
   );
 
   static const TextStyle headlineMedium = TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 22,
+    fontFamily: font,
+    fontSize: 24,
     fontWeight: FontWeight.w700,
     color: AppColors.textPrimary,
-    height: 1.35,
   );
 
   static const TextStyle titleLarge = TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 18,
+    fontFamily: font,
+    fontSize: 20,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
-    height: 1.4,
   );
 
   static const TextStyle titleMedium = TextStyle(
-    fontFamily: _fontFamily,
+    fontFamily: font,
     fontSize: 16,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
-    height: 1.4,
   );
 
   static const TextStyle bodyLarge = TextStyle(
-    fontFamily: _fontFamily,
+    fontFamily: font,
     fontSize: 16,
     fontWeight: FontWeight.w400,
-    color: AppColors.textSecondary,
-    height: 1.5,
+    color: AppColors.textPrimary,
   );
 
   static const TextStyle bodyMedium = TextStyle(
-    fontFamily: _fontFamily,
+    fontFamily: font,
     fontSize: 14,
     fontWeight: FontWeight.w400,
     color: AppColors.textSecondary,
-    height: 1.5,
   );
 
   static const TextStyle bodySmall = TextStyle(
-    fontFamily: _fontFamily,
+    fontFamily: font,
     fontSize: 12,
     fontWeight: FontWeight.w400,
-    color: AppColors.textHint,
-    height: 1.5,
-  );
-
-  static const TextStyle caption = TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 11,
-    fontWeight: FontWeight.w500,
-    color: AppColors.textHint,
-    height: 1.4,
-    letterSpacing: 0.4,
-  );
-
-  static const TextStyle buttonText = TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    color: Colors.white,
-    letterSpacing: 0.2,
-  );
-
-  static const TextStyle linkText = TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    color: AppColors.primary,
+    color: AppColors.textSecondary,
   );
 
   static const TextStyle labelSmall = TextStyle(
-    fontFamily: _fontFamily,
-    fontSize: 12,
-    fontWeight: FontWeight.w600,
-    letterSpacing: 0.5,
+    fontFamily: font,
+    fontSize: 11,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textSecondary,
+    textBaseline: TextBaseline.alphabetic,
   );
-}
 
-class AppSpacing {
-  AppSpacing._();
+  static const TextStyle caption = TextStyle(
+    fontFamily: font,
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: AppColors.textSecondary,
+  );
 
-  static const double xs = 4;
-  static const double sm = 8;
-  static const double md = 12;
-  static const double lg = 16;
-  static const double xl = 20;
-  static const double xxl = 24;
-  static const double xxxl = 32;
-  static const double huge = 48;
-  static const double massive = 64;
+  static const TextStyle buttonText = TextStyle(
+    fontFamily: font,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  );
 
-  static const EdgeInsets screenPadding =
-      EdgeInsets.symmetric(horizontal: 20, vertical: 16);
+  static const TextStyle linkText = TextStyle(
+    fontFamily: font,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primary,
+  );
+
+  // Legacy/Compatibility
+  static const TextStyle heading = displayMedium;
+  static const TextStyle subheading = bodyLarge;
+  static const TextStyle input = bodyLarge;
+  static const TextStyle button = buttonText;
+  static const TextStyle link = linkText;
 }
 
 class AppRadius {
   AppRadius._();
+  static const double xs = 4.0;
+  static const double sm = 8.0;
+  static const double md = 12.0;
+  static const double lg = 16.0;
+  static const double xl = 24.0;
+  static const double xxl = 32.0;
+  static const double full = 999.0;
+}
 
-  static const double sm = 8;
-  static const double md = 12;
-  static const double lg = 16;
-  static const double xl = 20;
-  static const double xxl = 24;
-  static const double full = 100;
+class AppDimensions {
+  AppDimensions._();
+  static const double inputRadius = 8.0;
+  static const double cardRadius = 28.0;
+  static const double horizontalPadding = 24.0;
+  static const double verticalPadding = 24.0;
 }
 
 class AppShadows {
   AppShadows._();
-
-  static List<BoxShadow> card = [
+  static List<BoxShadow> get card => [
     BoxShadow(
-      color: AppColors.cardShadow,
-      blurRadius: 20,
+      color: Colors.black.withValues(alpha: 0.05),
+      blurRadius: 10,
       offset: const Offset(0, 4),
-      spreadRadius: 0,
     ),
   ];
-
-  static List<BoxShadow> cardHover = [
+  
+  static List<BoxShadow> get soft => [
     BoxShadow(
-      color: AppColors.primary.withValues(alpha: 0.08),
-      blurRadius: 24,
-      offset: const Offset(0, 8),
-      spreadRadius: 0,
-    ),
-  ];
-
-  static List<BoxShadow> bottomNav = [
-    BoxShadow(
-      color: Colors.black.withValues(alpha: 0.06),
-      blurRadius: 16,
-      offset: const Offset(0, -4),
+      color: Colors.black.withValues(alpha: 0.03),
+      blurRadius: 6,
+      offset: const Offset(0, 2),
     ),
   ];
 }
 
-/// Helper to get a colour for a policy type.
-Color getPolicyTypeColor(String? type) {
-  switch (type) {
-    case 'Health':
-      return AppColors.healthPolicy;
-    case 'Life':
-      return AppColors.lifePolicy;
-    case 'Motor':
-      return AppColors.motorPolicy;
-    case 'Home':
-      return AppColors.homePolicy;
-    case 'Travel':
-      return AppColors.travelPolicy;
-    default:
-      return AppColors.primary;
-  }
-}
-
-IconData getPolicyTypeIcon(String? type) {
-  switch (type) {
-    case 'Health':
-      return Icons.favorite_outline;
-    case 'Life':
-      return Icons.shield_outlined;
-    case 'Motor':
-      return Icons.directions_car_outlined;
-    case 'Home':
-      return Icons.home_outlined;
-    case 'Travel':
-      return Icons.flight_outlined;
-    default:
-      return Icons.policy_outlined;
-  }
-}
-
-/// Build app-wide ThemeData from these tokens.
 ThemeData buildAppTheme() {
   return ThemeData(
     useMaterial3: true,
-    fontFamily: 'Roboto',
+    fontFamily: 'Inter',
     scaffoldBackgroundColor: AppColors.background,
-    colorScheme: ColorScheme.light(
+    colorScheme: const ColorScheme.light(
       primary: AppColors.primary,
       onPrimary: Colors.white,
+      secondary: AppColors.accent,
+      onSecondary: Colors.white,
       surface: AppColors.surface,
       onSurface: AppColors.textPrimary,
       error: AppColors.error,
     ),
+    dividerTheme: const DividerThemeData(
+      color: AppColors.divider,
+      thickness: 1,
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.surface,
-      foregroundColor: AppColors.textPrimary,
       elevation: 0,
-      scrolledUnderElevation: 0.5,
-      centerTitle: false,
-      titleTextStyle: TextStyle(
-        fontFamily: 'Roboto',
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: AppColors.textPrimary,
-      ),
+      centerTitle: true,
+      titleTextStyle: AppTextStyles.titleLarge,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
-        elevation: 0,
-        minimumSize: const Size(double.infinity, 54),
+        minimumSize: const Size(double.infinity, 56),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.md),
         ),
         textStyle: AppTextStyles.buttonText,
-      ),
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        foregroundColor: AppColors.primary,
-        side: const BorderSide(color: AppColors.border, width: 1.5),
-        minimumSize: const Size(double.infinity, 54),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.md),
-        ),
-        textStyle: AppTextStyles.buttonText.copyWith(color: AppColors.primary),
+        elevation: 0,
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.surface,
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textHint),
-      labelStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textHint),
-      prefixIconColor: AppColors.textHint,
+      contentPadding: const EdgeInsets.all(16),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppRadius.md),
-        borderSide: const BorderSide(color: AppColors.border, width: 1),
+        borderSide: const BorderSide(color: AppColors.border),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppRadius.md),
-        borderSide: const BorderSide(color: AppColors.border, width: 1),
+        borderSide: const BorderSide(color: AppColors.border),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppRadius.md),
-        borderSide: const BorderSide(color: AppColors.borderFocused, width: 1.5),
+        borderSide: const BorderSide(color: AppColors.primary, width: 2),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppRadius.md),
-        borderSide: const BorderSide(color: AppColors.error, width: 1),
+        borderSide: const BorderSide(color: AppColors.error),
       ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppRadius.md),
-        borderSide: const BorderSide(color: AppColors.error, width: 1.5),
-      ),
-    ),
-    snackBarTheme: SnackBarThemeData(
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.sm),
-      ),
-      backgroundColor: AppColors.textPrimary,
-      contentTextStyle: const TextStyle(color: Colors.white, fontSize: 14),
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        foregroundColor: AppColors.primary,
-        textStyle: AppTextStyles.linkText,
-      ),
-    ),
-    dividerTheme: const DividerThemeData(
-      color: AppColors.divider,
-      thickness: 1,
-      space: 0,
-    ),
-    cardTheme: CardThemeData(
-      color: AppColors.surface,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.lg),
-      ),
+      labelStyle: AppTextStyles.bodyMedium,
+      hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textHint),
     ),
   );
 }

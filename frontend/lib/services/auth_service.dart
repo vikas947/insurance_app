@@ -29,11 +29,18 @@ class AuthService {
   }
 
   /// Social login (google / facebook)
-  static Future<Map<String, dynamic>> socialLogin(String provider, String token) async {
-    debugPrint('[AuthService] socialLogin($provider)');
+  static Future<Map<String, dynamic>> socialLogin({
+    required String loginType,
+    required String email,
+    required String name,
+    required String providerId,
+  }) async {
+    debugPrint('[AuthService] socialLogin($loginType: $email)');
     return await ApiClient.post('/auth/social-login', body: {
-      'provider': provider,
-      'token': token,
+      'loginType': loginType,
+      'email': email,
+      'name': name,
+      'providerId': providerId,
     });
   }
 }

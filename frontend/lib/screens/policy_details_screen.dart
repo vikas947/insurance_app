@@ -70,13 +70,13 @@ class _PolicyDetailsScreenState extends State<PolicyDetailsScreen>
           elevation: 0,
           leading: const AppBackButton(),
         ),
-        body: const Center(
+        body: Center(
           child: SizedBox(
             width: 22,
             height: 22,
             child: CircularProgressIndicator(
               strokeWidth: 2.5,
-              color: AppColors.primary,
+              valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
             ),
           ),
         ),
@@ -110,8 +110,8 @@ class _PolicyDetailsScreenState extends State<PolicyDetailsScreen>
     }
 
     final type = _policy!['type'] as String?;
-    final typeColor = getPolicyTypeColor(type);
-    final typeIcon = getPolicyTypeIcon(type);
+    final typeColor = AppColors.getPolicyTypeColor(type);
+    final typeIcon = AppColors.getPolicyTypeIcon(type);
     final isActive = _policy!['status'] == 'Active';
 
     return Scaffold(
@@ -285,7 +285,7 @@ class _PolicyDetailsScreenState extends State<PolicyDetailsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Policy Details', style: AppTextStyles.titleMedium),
+          const Text('Policy Details', style: AppTextStyles.titleMedium),
           const SizedBox(height: 8),
           AppDetailRow(
             label: 'Type',
@@ -331,7 +331,7 @@ class _PolicyDetailsScreenState extends State<PolicyDetailsScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Benefits', style: AppTextStyles.titleMedium),
+          const Text('Benefits', style: AppTextStyles.titleMedium),
           const SizedBox(height: 16),
           ...benefits.map((benefit) => Padding(
                 padding: const EdgeInsets.only(bottom: 12),

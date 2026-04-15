@@ -112,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 height: 22,
                 child: CircularProgressIndicator(
                   strokeWidth: 2.5,
-                  color: AppColors.primary,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                 ),
               ),
             ],
@@ -180,10 +180,10 @@ class _DashboardScreenState extends State<DashboardScreen>
 
                 // ── Recommendations ──
                 if (_recommendations.isNotEmpty) ...[
-                  SliverToBoxAdapter(
+                  const SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 32, 20, 16),
-                      child: const AppSectionHeader(
+                      padding: EdgeInsets.fromLTRB(20, 32, 20, 16),
+                      child: AppSectionHeader(
                         title: 'Recommended for You',
                       ),
                     ),
@@ -463,9 +463,9 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
             ),
             const SizedBox(height: 20),
-            Text('No active policies', style: AppTextStyles.titleMedium),
+            const Text('No active policies', style: AppTextStyles.titleMedium),
             const SizedBox(height: 8),
-            Text(
+            const Text(
               'Secure your future by buying\na policy today.',
               style: AppTextStyles.bodyMedium,
               textAlign: TextAlign.center,
@@ -488,8 +488,8 @@ class _DashboardScreenState extends State<DashboardScreen>
   // ── Policy card ──
   Widget _buildPolicyCard(dynamic policy) {
     final type = policy['type'] as String?;
-    final typeColor = getPolicyTypeColor(type);
-    final typeIcon = getPolicyTypeIcon(type);
+    final typeColor = AppColors.getPolicyTypeColor(type);
+    final typeIcon = AppColors.getPolicyTypeIcon(type);
 
     return GestureDetector(
       onTap: () {
@@ -561,7 +561,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Coverage', style: AppTextStyles.caption),
+                      const Text('Coverage', style: AppTextStyles.caption),
                       const SizedBox(height: 4),
                       Text(
                         '₹${_formatAmount(policy['coverageAmount'])}',
@@ -575,7 +575,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('Premium', style: AppTextStyles.caption),
+                      const Text('Premium', style: AppTextStyles.caption),
                       const SizedBox(height: 4),
                       Text(
                         '₹${_formatAmount(policy['premium'])}/yr',
@@ -604,8 +604,8 @@ class _DashboardScreenState extends State<DashboardScreen>
         itemBuilder: (context, index) {
           final rec = _recommendations[index];
           final type = rec['type'] as String?;
-          final typeColor = getPolicyTypeColor(type);
-          final typeIcon = getPolicyTypeIcon(type);
+          final typeColor = AppColors.getPolicyTypeColor(type);
+          final typeIcon = AppColors.getPolicyTypeIcon(type);
 
           return Container(
             width: 240,
@@ -689,5 +689,23 @@ class _DashboardScreenState extends State<DashboardScreen>
     if (val >= 100000) return '${(val / 100000).toStringAsFixed(1)}L';
     if (val >= 1000) return '${(val / 1000).toStringAsFixed(1)}K';
     return val.toStringAsFixed(0);
+  }
+
+  Color getPolicyTypeColor(String? type) {
+    switch (type?.toLowerCase()) {
+      case 'health': return AppColors.healthPolicy;
+      case 'life': return AppColors.lifePolicy;
+      case 'vehicle': return AppColors.vehiclePolicy;
+      default: return AppColors.primary;
+    }
+  }
+
+  IconData getPolicyTypeIcon(String? type) {
+    switch (type?.toLowerCase()) {
+      case 'health': return Icons.favorite_outline;
+      case 'life': return Icons.person_outline;
+      case 'vehicle': return Icons.directions_car_outlined;
+      default: return Icons.shield_outlined;
+    }
   }
 }
