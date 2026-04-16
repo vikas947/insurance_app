@@ -1,3 +1,5 @@
+rootProject.name = "clean_app_android"
+
 pluginManagement {
     val flutterSdkPath =
         run {

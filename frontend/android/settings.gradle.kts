@@ -1,3 +1,5 @@
+rootProject.name = "frontend_android"
+
 pluginManagement {
     val flutterSdkPath =
         run {

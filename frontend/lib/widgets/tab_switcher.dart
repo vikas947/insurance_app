@@ -26,9 +26,7 @@ class TabSwitcher extends StatelessWidget {
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: isActive
-                        ? AppColors.secondary
-                        : AppColors.lightGrey,
+                    color: isActive ? AppColors.secondary : AppColors.lightGrey,
                     width: isActive ? 2.5 : 1,
                   ),
                 ),
