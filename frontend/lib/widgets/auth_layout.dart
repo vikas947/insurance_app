@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/app_theme.dart';
 
-
 class AuthLayout extends StatelessWidget {
   final Widget child;
   final Widget? pinnedBottom;
@@ -15,38 +14,34 @@ class AuthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final topPadding = MediaQuery.of(context).padding.top;
-
-    final illustrationHeight = screenHeight * 0.12;
-    final cardOverlap = 20.0;
-    final topSectionHeight = screenHeight * 0.42;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: true, // ✅ IMPORTANT
-
-      body: Stack(
+      resizeToAvoidBottomInset: true,
+      body: Column(
         children: [
-
-          /// 🔥 TOP SECTION
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: topSectionHeight,
-            child: Container(
-              color: Colors.white,
-              padding: EdgeInsets.only(top: topPadding),
+          /// 🔝 TOP SECTION (AUTO SHRINK)
+          Flexible(
+            fit: FlexFit.loose,
+            child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppDimensions.horizontalPadding,
                 ),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min, // 🔥 MUST
                   children: [
-                    SizedBox(height: screenHeight * 0.015),
-                    Image.asset('assets/images/logo.png',
-                        height: screenHeight * 0.055),
-                    SizedBox(height: screenHeight * 0.018),
+                    const SizedBox(height: 30),
+
+                    /// Logo
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: 40,
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    /// Title
                     const Text(
                       "Welcome to Self-i",
                       textAlign: TextAlign.center,
@@ -56,7 +51,10 @@ class AuthLayout extends StatelessWidget {
                         color: Color(0xFF6B1E1E),
                       ),
                     ),
-                    const SizedBox(height: 6),
+
+                    const SizedBox(height: 10),
+
+                    /// Subtitle
                     const Text(
                       "Login or sign up with your mobile number\nor email ID.",
                       textAlign: TextAlign.center,
@@ -66,10 +64,12 @@ class AuthLayout extends StatelessWidget {
                         height: 1.4,
                       ),
                     ),
-                    const Spacer(),
+
+                    const SizedBox(height: 16),
+
+                    /// Illustration (NO OVERFLOW)
                     SizedBox(
-                      height: illustrationHeight,
-                      width: double.infinity,
+                      height: screenHeight * 0.08,
                       child: Stack(
                         children: [
                           Positioned.fill(
@@ -80,64 +80,56 @@ class AuthLayout extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            left: 0,
-                            bottom: 0,
+                            left: -12,
+                            bottom: -4,
                             child: Image.asset(
                               'assets/images/character.png',
-                              height: illustrationHeight * 1.1,
+                              height: screenHeight * 0.11,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: cardOverlap),
                   ],
                 ),
               ),
             ),
           ),
 
-          /// 🔥 BOTTOM CARD (FIXED)
-          Positioned(
-            top: topSectionHeight - cardOverlap,
-            left: 0,
-            right: 0,
-            bottom: 0,
+          /// 🔽 BOTTOM CARD
+          Expanded(
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(AppDimensions.cardRadius),
                 ),
-                border: Border(
-                  top: BorderSide(color: Colors.grey.shade100, width: 1.5),
-                ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.06),
-                    blurRadius: 20,
-                    offset: const Offset(0, -10),
+                    color: Colors.black.withValues(alpha: 0.12),
+                    blurRadius: 40,
+                    offset: const Offset(0, -12),
                   ),
                 ],
               ),
-
               child: Column(
                 children: [
-
-                  /// 🔥 SCROLL AREA
+                  /// 🔥 SCROLLABLE FORM
                   Expanded(
                     child: SingleChildScrollView(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
                       padding: EdgeInsets.fromLTRB(
                         AppDimensions.horizontalPadding,
                         24,
                         AppDimensions.horizontalPadding,
-                        MediaQuery.of(context).viewInsets.bottom + 20, // ✅ KEY FIX
+                        MediaQuery.of(context).viewInsets.bottom + 20,
                       ),
                       child: child,
                     ),
                   ),
 
-                  /// 🔥 BOTTOM TERMS (SAFE)
+                  /// 🔽 TERMS (STICKY)
                   if (pinnedBottom != null)
                     Padding(
                       padding: EdgeInsets.fromLTRB(
