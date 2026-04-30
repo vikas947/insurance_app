@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../core/app_theme.dart';
-import '../providers/auth_provider.dart';
-import '../services/policy_service.dart';
-import '../widgets/app_widgets.dart';
-import 'login_screen.dart';
-import 'onboarding_screen.dart';
+import '../../core/Theme/app_colors.dart';
+import '../../core/Theme/app_text_styles.dart';
+import '../../core/Theme/app_radius.dart';
+import '../../core/Theme/app_shadows.dart';
+import '../../providers/auth_provider.dart';
+import '../../services/policy_service.dart';
+import '../../Shared/widgets/app_section_header.dart';
+import '../../Shared/widgets/app_status_chip.dart';
+import '../../Shared/widgets/app_primary_button.dart';
+import '../auth/screens/login_screen.dart';
+import '../auth/screens/onboarding_screen.dart';
 import 'profile_screen.dart';
 import 'policy_details_screen.dart';
 
@@ -180,9 +185,9 @@ class _DashboardScreenState extends State<DashboardScreen>
 
                 // ── Recommendations ──
                 if (_recommendations.isNotEmpty) ...[
-                  const SliverToBoxAdapter(
+                  SliverToBoxAdapter(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(20, 32, 20, 16),
+                      padding: const EdgeInsets.fromLTRB(20, 32, 20, 16),
                       child: AppSectionHeader(
                         title: 'Recommended for You',
                       ),
@@ -463,9 +468,9 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
             ),
             const SizedBox(height: 20),
-            const Text('No active policies', style: AppTextStyles.titleMedium),
+            Text('No active policies', style: AppTextStyles.titleMedium),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Secure your future by buying\na policy today.',
               style: AppTextStyles.bodyMedium,
               textAlign: TextAlign.center,
@@ -561,7 +566,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Coverage', style: AppTextStyles.caption),
+                      Text('Coverage', style: AppTextStyles.caption),
                       const SizedBox(height: 4),
                       Text(
                         '₹${_formatAmount(policy['coverageAmount'])}',
@@ -575,7 +580,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      const Text('Premium', style: AppTextStyles.caption),
+                      Text('Premium', style: AppTextStyles.caption),
                       const SizedBox(height: 4),
                       Text(
                         '₹${_formatAmount(policy['premium'])}/yr',
@@ -682,30 +687,11 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   String _formatAmount(dynamic amount) {
     if (amount == null) return '0';
-    final num val = amount is num
-        ? amount
-        : num.tryParse(amount.toString()) ?? 0;
+    final num val =
+        amount is num ? amount : num.tryParse(amount.toString()) ?? 0;
     if (val >= 10000000) return '${(val / 10000000).toStringAsFixed(1)}Cr';
     if (val >= 100000) return '${(val / 100000).toStringAsFixed(1)}L';
     if (val >= 1000) return '${(val / 1000).toStringAsFixed(1)}K';
     return val.toStringAsFixed(0);
-  }
-
-  Color getPolicyTypeColor(String? type) {
-    switch (type?.toLowerCase()) {
-      case 'health': return AppColors.healthPolicy;
-      case 'life': return AppColors.lifePolicy;
-      case 'vehicle': return AppColors.vehiclePolicy;
-      default: return AppColors.primary;
-    }
-  }
-
-  IconData getPolicyTypeIcon(String? type) {
-    switch (type?.toLowerCase()) {
-      case 'health': return Icons.favorite_outline;
-      case 'life': return Icons.person_outline;
-      case 'vehicle': return Icons.directions_car_outlined;
-      default: return Icons.shield_outlined;
-    }
   }
 }

@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'providers/auth_provider.dart';
-import 'screens/login_screen.dart';
+import 'features/auth/screens/login_screen.dart';
+import 'features/auth/screens/otp_screen.dart';
+import 'features/auth/screens/password_screen.dart';
+import 'features/home/dashboard_screen.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: LoginScreen());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (_) => const LoginScreen(),
+        '/otp': (_) => const OtpScreen(),
+        '/password': (_) => const PasswordScreen(),
+        '/dashboard': (_) => const DashboardScreen(),
+      },
+    );
   }
 }

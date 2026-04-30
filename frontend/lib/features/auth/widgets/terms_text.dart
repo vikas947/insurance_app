@@ -5,18 +5,15 @@ class TermsText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(
+    return const Text.rich(
       TextSpan(
         text: "By signing up, you agree to the ",
-        style: const TextStyle(
-          fontSize: 12,
-          color: Color(0xFF666666),
-        ),
-        children: const [
+        style: TextStyle(fontSize: 12),
+        children: [
           TextSpan(
             text: "Terms of Service",
             style: TextStyle(
-              color: Color(0xFF0A3D91),
+              color: Colors.blue,
               decoration: TextDecoration.underline,
             ),
           ),
@@ -24,7 +21,7 @@ class TermsText extends StatelessWidget {
           TextSpan(
             text: "Data Processing Agreement",
             style: TextStyle(
-              color: Color(0xFF0A3D91),
+              color: Colors.blue,
               decoration: TextDecoration.underline,
             ),
           ),
